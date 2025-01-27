@@ -24,7 +24,8 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    SECRET_FOLDER: str
+    OAUTH_CREDENTIALS_FILE_PATH: str
+    OAUTH_TOKEN_FILE_PATH: str
     SCOPES: Annotated[list[str], BeforeValidator(parse_scopes)] = []
 
 

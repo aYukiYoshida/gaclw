@@ -20,8 +20,8 @@ class GoogleApiClient(object):
 
     # https://developers.google.com/drive/api/guides/api-specific-auth
     # https://developers.google.com/sheets/api/scopes?hl=ja
-    TOKEN_FILE_PATH = Path(settings.SECRET_FOLDER, "token.json")
-    CREDENTIALS_FILE_PATH = Path(settings.SECRET_FOLDER, "credentials.json")
+    TOKEN_FILE_PATH = Path(settings.OAUTH_CREDENTIALS_FILE_PATH)
+    CREDENTIALS_FILE_PATH = Path(settings.OAUTH_TOKEN_FILE_PATH)
 
     def __init__(
         self,
