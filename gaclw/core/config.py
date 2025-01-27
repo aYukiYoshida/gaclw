@@ -1,10 +1,9 @@
 """Configuration"""
 
-from pydantic_settings import BaseSettings as PydanticBaseSettings
-from pydantic_settings import SettingsConfigDict
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-class BaseSettings(PydanticBaseSettings):
+class Settings(BaseSettings):
     """Configuration"""
 
     model_config = SettingsConfigDict(
@@ -15,3 +14,6 @@ class BaseSettings(PydanticBaseSettings):
     )
 
     SECRET_FOLDER: str
+
+
+settings = Settings()  # type: ignore
