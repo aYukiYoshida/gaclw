@@ -1,0 +1,35 @@
+[tools]
+poetry = "1.8"
+pre-commit = "4.0.1"
+python = "3.13"
+
+[tasks."setup:poetry"]
+run = "poetry install"
+
+[tasks."setup:pre-commit"]
+run = "pre-commit install"
+
+[tasks.setup]
+depends = ["setup:*"]
+
+[tasks.build]
+run = "poetry run poe build"
+depends = ["clean", "check"]
+
+[tasks.clean]
+run = "poetry run poe clean"
+
+[tasks.format]
+run = "poetry run poe format"
+
+[tasks.lint]
+run = "poetry run poe lint"
+depends = "format"
+
+[tasks.check]
+run = "poetry run poe check"
+depends = "lint"
+
+[tasks.publish]
+run = "poetry run poe publish"
+depends = ["build"]

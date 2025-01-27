@@ -1,0 +1,24 @@
+{
+    "cSpell.words": [
+        "httplib",
+        "isort",
+        "levelname",
+        "mypy",
+        "poethepoet",
+        "pycodestyle",
+        "pydantic",
+        "pydocstyle",
+        "Pyflakes",
+        "sdist",
+        "venv",
+        "virtualenv"
+    ],
+    "pylint.enabled": false,
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    }
+}
