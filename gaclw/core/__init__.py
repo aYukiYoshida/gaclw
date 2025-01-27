@@ -1,4 +1,4 @@
-from gaclw.core.config import settings
+from gaclw.core.config import BaseSettings
 
 
-__all__ = ["settings"]
+__all__ = ["BaseSettings"]

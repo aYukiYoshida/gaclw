@@ -1,5 +1,5 @@
 from gaclw.client import GoogleDriveApiClient, GoogleSpreadsheetsApiClient
-from gaclw.core import settings
+from gaclw.core import BaseSettings
 
 
-__all__ = ["GoogleDriveApiClient", "GoogleSpreadsheetsApiClient", "settings"]
+__all__ = ["GoogleDriveApiClient", "GoogleSpreadsheetsApiClient", "BaseSettings"]
