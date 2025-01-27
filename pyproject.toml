@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gaclw"
-version = "0.1.4"
+version = "0.1.5"
 description = "Wrapper for Google API Client Library"
 authors = ["aYukiYoshida <yuki.yoshida@access-company.com>"]
 license = "MIT"
