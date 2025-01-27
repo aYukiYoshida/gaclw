@@ -7,10 +7,7 @@ from gaclw.client.base import GoogleApiClient
 
 class GoogleSpreadsheetsApiClient(GoogleApiClient):
     def __init__(self, log_level: int = 2):
-        scopes = [
-            "https://www.googleapis.com/auth/spreadsheets",
-        ]
-        super().__init__("sheets", "v4", scopes, log_level)
+        super().__init__("sheets", "v4", log_level)
         self._spreadsheets = self.service.spreadsheets()  # type: ignore
 
     @property

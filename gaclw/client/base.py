@@ -27,11 +27,10 @@ class GoogleApiClient(object):
         self,
         service_name: str,
         version: str,
-        scopes: list[str],
         log_level: int = 2,
     ):
         self._logger = self.get_logger(log_level)
-        self._credentials = self.authenticate(scopes)
+        self._credentials = self.authenticate(settings.SCOPES)
         self._service = build(service_name, version, credentials=self._credentials)
 
     @property

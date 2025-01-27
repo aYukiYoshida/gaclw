@@ -12,8 +12,7 @@ class GoogleDriveApiClient(GoogleApiClient):
     """Google Drive API client"""
 
     def __init__(self, log_level: int = 2):
-        scopes = ["https://www.googleapis.com/auth/drive"]
-        super().__init__("drive", "v3", scopes, log_level)
+        super().__init__("drive", "v3", log_level)
         self._files = self.service.files()  # type: ignore
 
     @property
