@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     OAUTH_CREDENTIALS_FILE_PATH: str
     OAUTH_TOKEN_FILE_PATH: str
     SCOPES: Annotated[list[str], BeforeValidator(parse_scopes)] = []
+    LOG_LEVEL: int = 2
 
 
 settings = Settings()  # type: ignore

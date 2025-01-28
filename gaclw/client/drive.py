@@ -1,5 +1,6 @@
 """define GoogleDriveApiClient class"""
 
+import logging
 import pathlib
 
 from googleapiclient.errors import HttpError
@@ -11,8 +12,14 @@ from gaclw.client.base import GoogleApiClient
 class GoogleDriveApiClient(GoogleApiClient):
     """Google Drive API client"""
 
-    def __init__(self, log_level: int = 2):
-        super().__init__("drive", "v3", log_level)
+    def __init__(self, oauth_credentials: str, oauth_token: str, logger: logging.Logger):
+        super().__init__(
+            service_name="drive",
+            version="v3",
+            oauth_credentials=oauth_credentials,
+            oauth_token=oauth_token,
+            logger=logger,
+        )
         self._files = self.service.files()  # type: ignore
 
     @property

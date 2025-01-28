@@ -1,3 +1,4 @@
+import logging
 from typing import Any
 
 from googleapiclient.errors import HttpError
@@ -6,8 +7,14 @@ from gaclw.client.base import GoogleApiClient
 
 
 class GoogleSpreadsheetsApiClient(GoogleApiClient):
-    def __init__(self, log_level: int = 2):
-        super().__init__("sheets", "v4", log_level)
+    def __init__(self, oauth_credentials: str, oauth_token: str, logger: logging.Logger):
+        super().__init__(
+            service_name="sheets",
+            version="v4",
+            oauth_credentials=oauth_credentials,
+            oauth_token=oauth_token,
+            logger=logger,
+        )
         self._spreadsheets = self.service.spreadsheets()  # type: ignore
 
     @property
