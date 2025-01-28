@@ -58,11 +58,11 @@ cmd = "ruff format"
 help = "lint code"
 
 [tool.poe.tasks.check]
-cmd = "rm -rf dist"
+cmd = "mypy gaclw"
 help = "static type check"
 
 [tool.poe.tasks.clean]
-cmd = "rm -rf dist"
+cmd = "python scripts/clean.py dist"
 help = "clean up build artifacts"
 
 [tool.poe.tasks.build]
