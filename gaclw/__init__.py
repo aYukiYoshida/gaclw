@@ -1,4 +1,4 @@
-from gaclw.client import GoogleDriveApiClient, GoogleSpreadsheetsApiClient
+from gaclw.client import wrapper
 
 
-__all__ = ["GoogleDriveApiClient", "GoogleSpreadsheetsApiClient"]
+__all__ = ["wrapper"]

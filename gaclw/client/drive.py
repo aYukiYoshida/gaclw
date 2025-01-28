@@ -6,10 +6,10 @@ import pathlib
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload
 
-from gaclw.client.base import GoogleApiClient
+from gaclw.client.base import ApiClientBase
 
 
-class GoogleDriveApiClient(GoogleApiClient):
+class DriveApiClient(ApiClientBase):
     """Google Drive API client"""
 
     def __init__(self, oauth_credentials: str, oauth_token: str, logger: logging.Logger):

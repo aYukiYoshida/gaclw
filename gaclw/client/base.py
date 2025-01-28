@@ -2,6 +2,7 @@
 
 import logging
 from pathlib import Path
+from typing import Any
 
 from google.auth.external_account_authorized_user import (
     Credentials as ExternalAccountCredentials,
@@ -15,7 +16,16 @@ from gaclw.core.config import settings
 from gaclw.utils import logger as default_logger
 
 
-class GoogleApiClient(object):
+class Singleton:
+    _INSTANCE: dict[object, Any] = {}
+
+    def __new__(cls, *args, **kwargs):
+        if cls not in cls._INSTANCE:
+            cls._INSTANCE[cls] = super().__new__(cls)
+        return cls._INSTANCE[cls]
+
+
+class ApiClientBase(Singleton):
     """Base class for clients"""
 
     # https://developers.google.com/drive/api/guides/api-specific-auth
@@ -29,9 +39,11 @@ class GoogleApiClient(object):
         scopes: list[str] = settings.SCOPES,
         logger: logging.Logger = default_logger,
     ):
-        self._logger = logger
-        self._credentials = self.authenticate(oauth_credentials, oauth_token, scopes)
-        self._service = build(service_name, version, credentials=self._credentials)
+        if not hasattr(self, "initialized"):
+            self._logger = logger
+            self._credentials = self.authenticate(oauth_credentials, oauth_token, scopes)
+            self._service = build(service_name, version, credentials=self._credentials)
+            self.initialized = True
 
     @property
     def logger(self) -> logging.Logger:
