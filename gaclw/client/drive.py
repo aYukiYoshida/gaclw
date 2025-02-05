@@ -2,11 +2,24 @@
 
 import logging
 import pathlib
+from typing import Literal, TypedDict
 
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload
 
 from gaclw.client.base import ApiClientBase
+
+
+Role = Literal["owner", "organizer", "fileOrganizer", "writer", "commenter", "reader"]
+
+
+class Permission(TypedDict):
+    """Permission type definition"""
+
+    id: str
+    type: Literal["user", "group", "domain", "anyone"]
+    kind: Literal["drive#permission"]
+    role: Role
 
 
 class DriveApiClient(ApiClientBase):
@@ -21,10 +34,15 @@ class DriveApiClient(ApiClientBase):
             logger=logger,
         )
         self._files = self.service.files()  # type: ignore
+        self._permissions = self.service.permissions()  # type: ignore
 
     @property
     def files(self):
         return self._files
+
+    @property
+    def permissions(self):
+        return self._permissions
 
     def find_folder(
         self, folder_name: str, parent_folder_id: str | None = None
@@ -166,3 +184,34 @@ class DriveApiClient(ApiClientBase):
             return None
         else:
             return created_folder.get("id", "NA")
+
+    def get_permissions(self, file_id: str) -> list[Permission]:
+        """Get permissions of file in Google Drive."""
+        permissions: dict = self.permissions.list(
+            fileId=file_id, supportsAllDrives=True
+        ).execute()
+        return permissions.get("permissions", [])
+
+    def delete_permission(self, file_id: str, permission_id: str) -> None:
+        """Delete specified permissions from file in Google Drive."""
+        self.permissions.delete(fileId=file_id, permissionId=permission_id).execute()
+
+    def create_permission(self, file_id: str, email: str, role: Role) -> None:
+        """Create permission for file in Google Drive."""
+        permission = {
+            "role": role,
+            "type": "user",
+            "emailAddress": email,
+        }
+        self.permissions.create(
+            fileId=file_id,
+            body=permission,
+            sendNotificationEmail=False,
+            supportsAllDrives=True,
+        ).execute()
+        self.logger.info(
+            "Created permission: %s with role: %s for file ID: %s",
+            email,
+            role,
+            file_id,
+        )
